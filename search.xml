@@ -6,7 +6,15 @@
     <content><![CDATA[<p>​		最近在了解区块链的相关知识，对所学内容做一些总结，本文主要介绍比特币相关知识，本文只是作为笔记类容，相关技术细节可观看<a href="https://www.bilibili.com/video/BV1Vt411X7JF?spm_id_from=333.337.search-card.all.click">北大肖臻老师的《区块链技术与应用》</a>和<a href="https://bitcoin.org/bitcoin.pdf">《比特币白皮书》</a>。</p>
 <span id="more"></span>
 
-<h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
+<h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><ul>
+<li>密码学基础</li>
+<li>比特币的数据结构</li>
+<li>共识协议和系统实现</li>
+<li>挖矿算法和难度调整</li>
+<li>比特币脚本</li>
+<li>软分叉和硬分叉</li>
+<li>匿名和隐私保护</li>
+</ul>
 <h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>性质：<br><strong>collision(这里指哈希碰撞) resistance</strong>，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)</p>
 <p><strong>hiding</strong>	哈希函数的计算过程是单向的，不可逆的</p>
 <p>除此之外，比特币中还有第三个性质：<strong>puzzle friendly</strong>	哈希值的预算事先是不可预算的，</p>
