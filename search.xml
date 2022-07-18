@@ -71,9 +71,11 @@
 <p>比特币开户就在本地生成一对公私钥(public key，private key)，公钥相当于账户(可公开)，私钥相当于密码。知道私钥就可以把钱卷走</p>
 <p>比如A要给B转10个比特币，A将交易发布到区块链上，A用私钥对交易进行签名，其他人用公钥对签名进行验证。</p>
 <p>生成公私钥时、签名时要有一个好的随机源(a good dource of randomness)，不仅是生成公私钥的时候要有好的随机源，之后每一次签名时也要有好的随机源。只要有一次签名用的随机源不好的话，就有可能泄露私钥</p>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希指针-hash-pointers"><a href="#哈希指针-hash-pointers" class="headerlink" title="哈希指针(hash pointers)"></a>哈希指针(hash pointers)</h3><p>普通指针保存结构体在内存中的地址，哈希指针除了保存地址，还要保存哈希值</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p><strong>哈希指针</strong>(hash pointers)</p>
+<p>普通指针保存结构体在内存中的地址，哈希指针除了保存地址，还要保存哈希值</p>
 <h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p>比特币中的数据结构——区块链，区块链就是一个个区块组成的链表，</p>
-<h3 id="区块链和普通链表的区别："><a href="#区块链和普通链表的区别：" class="headerlink" title="区块链和普通链表的区别："></a>区块链和普通链表的区别：</h3><h4 id="1、用哈希指针代替了普通指针"><a href="#1、用哈希指针代替了普通指针" class="headerlink" title="1、用哈希指针代替了普通指针"></a>1、用哈希指针代替了普通指针</h4><p>区块链的第一个区块——创世纪块(generic block)</p>
+<p>区块链和普通链表的区别：用哈希指针代替了普通指针</p>
+<p>区块链的第一个区块——创世纪块(generic block)</p>
 <p>最后一个块——(most resent block)，每个区块都有一个指向前一个区块的哈希指针</p>
 <p>当前块的哈希是前一个区块的整个哈希值，所以改了前面一个区块的一部分内容，后面所有区块都要做修改。我们只需要记住最后一个区块的哈希值，就可以知道前面所有区块有没有做修改</p>
 <p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709203428479.png" alt="image-20220709203428479"></p>
@@ -85,22 +87,18 @@
 <p>交易节点到根节点的路径就是merkle proof</p>
 <p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709210235179.png" alt="image-20220709210235179"></p>
 <p>全节点会把merkle proof和红色hash发给轻节点。轻节点将tx的hash和红色hash拼接，再与红色hash求hash，最终得到根节点hash，与merkle tree的hash做比较，即可验证tx是否在merkle tree里</p>
-<p>这样是否不安全呢？假如黄色交易被篡改，它的哈希值发生了变化，那能不能调整旁边红色的哈希值，使得它们拼接起来的哈希值是不变的呢?不行，根据<a href="http://127.0.0.1:4000/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0">collision resistance</a>，这是不可行的。</p>
-<p>merkle proof可以证明merkle tree里面包含了某个交易，所以这种证明又叫proof of membership或 proof of inclusion。<br>对于一个轻节点来说，验证一个merkle proof 复杂度是多少?假设最底层有n个交易，则merkle proof 复杂程度是θ(log(n))</p>
-<p>如何证明merkle tree里面没有包含某个交易?即proof of non-membership。可以把整棵树传给轻节点，轻节点收到后验证树的构造都是对的，每一层用到的哈希值都是正确的，说明树里只有这些叶节点，要找的交易不在里面，就证明了proof of non-membership。问题在于，它的复杂度是线性的θ(n)，是比较笨的方法。</p>
-<p>如果对叶节点的排列顺序做一些要求，比如按照交易的哈希值排序。每一个叶节点都是一次交易，对交易的内容取一次哈希，按照哈希值从小到大排列。要查的交易先算出一个哈希值，看看如果它在里面该是哪个位置。比如说在第三个第四个之间，这时提供的proof是第三个第四个叶节点都要往上到根节点。如果其中哈希值都是正确的，最后根节点算出的哈希值也是没有被改过的，说明第三、四个节点在原来的merkle tree里面，确实是相邻的点。要找的交易如果存在的话，应该在这两个节点中间。但是它没有出现，所以就不存在。其复杂度也是log形式，代价是要排序。排好序的叫作sorted merkle tree。比特币中没有用到这种排好序的merkle tree，因为比特币中不需要做不存在证明。</p>
-<p>这节讲了比特币中两种最基本的结构:区块链和merkle tree，都是用哈希指针来构造的。除了这两种之外，哈希指针还能用另一个方面。</p>
-<p>只要一个数据结构是无环的(非循环链表)，都能用哈希指针代替普通指针。有环的话存在一个问题，他们的哈希值没法计算，没法确定一个哈希值固定的区块。</p>
+<p>这样是否不安全呢？假如黄色交易被篡改，它的哈希值发生了变化，那能不能调整旁边红色的哈希值，使得它们拼接起来的哈希值是不变的呢?不行，根据<a href="http://www.tutuker.com/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0">collision resistance</a>，这是不可行的。</p>
+<p>小结：比特币中两种最基本的结构:区块链和merkle tree，都是用哈希指针来构造的。除了这两种之外，哈希指针还能用另一个方面。只要一个数据结构是无环的(非循环链表)，都能用哈希指针代替普通指针。有环的话存在一个问题，他们的哈希值没法计算，没法确定一个哈希值固定的区块。</p>
 <h2 id="比特币协议"><a href="#比特币协议" class="headerlink" title="比特币协议"></a>比特币协议</h2><p>数字货币的风险：</p>
 <p>double spending attack 花两次攻击</p>
 <p>解决发方法：</p>
-<p>数据中心记录每个数字货币对应的人，A把钱已经给B了，对应关系已经指向B，如果A再想把钱给其他人，交易就无法进行，因为数据中心发现数字货币不属于A了</p>
+<p>数据中心记录每个数字货币对应的人，A把钱已经给B了，对应关系已经指向B，如果A再想把钱给其他人，交易就无法进行，因为系统发现数字货币不属于A了</p>
 <p>缺点：所有交易都要经过数据中心</p>
 <p>解决方法：<strong>去中心化</strong></p>
 <h3 id="块头和块体"><a href="#块头和块体" class="headerlink" title="块头和块体"></a>块头和块体</h3><p>块头：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version	版本</span><br><span class="line">hash of previous block header	指向前一个区块的指针</span><br><span class="line">merkle root hash	整个merkle tree根节点hash值</span><br><span class="line">target	挖矿的难度目标值，整个块头的hash要小于这个target值，即H(block header) ≤ target</span><br><span class="line">nonce	随机数</span><br></pre></td></tr></table></figure>
 
-<p>块身</p>
+<p>块体</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ttransaction list 交易列表</span><br></pre></td></tr></table></figure>
 
 <h3 id="分布式共识协议"><a href="#分布式共识协议" class="headerlink" title="分布式共识协议"></a>分布式共识协议</h3><p>分布式系统两个结论</p>
@@ -121,7 +119,7 @@
 <p>2、交易费：很少。交易费是为了激励区块接受下一个区块，</p>
 <p>矿工挖矿，争夺记账权主要是为了出块奖励，12.5个BTC。越往后出块奖励就会越少，挖矿争夺的就是交易费</p>
 <h2 id="比特币网络"><a href="#比特币网络" class="headerlink" title="比特币网络"></a>比特币网络</h2><p>比特币工作在应用层，底层是p2p网络层</p>
-<p>比特币网络设计的原则是<strong>简单</strong>、<strong>鲁棒</strong>，而不是高效。每个节点维护一个零度节点的集合消息传输在网络中采取flooding的方式，节点第一次听到某个消息时，把他传播给所有的零度节点，同时记录消息我已经收到了，下次收到消息时就不用转发给零度节点了</p>
+<p>比特币网络设计的原则是<strong>简单</strong>、<strong>鲁棒</strong>，而不是高效。每个节点维护一个零度节点的集合，消息传输在网络中采取flooding的方式，节点第一次听到某个消息时，把他传播给所有的零度节点，同时记录消息我已经收到了，下次收到消息时就不用转发给零度节点了</p>
 <p>零度节点是随机的，没有考虑底层的网络结构，这样设计的好处是增强鲁棒性，但是会牺牲效率</p>
 <p>比特币系统中，每个节点要维护一个等待上链交易的集合，假设某个集合里的交易都是等待写入区块链里的，那么第一次听到某个合法交易时，把这个交易加入到集合，并将这个交易转发给所有邻居节点，再次收到这个交易时就不用转发了，这样就避免了交易无限制的传播下去，</p>
 <p>比特币协议对区块的大小有1M的限制，可能需要几十秒才能传播给其他节点</p>
