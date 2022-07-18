@@ -20,22 +20,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="比特币基础知识一密码学基础一比特币的数据结构一共识协议和系统实现一挖矿算法和难度调整一比特币脚本一软分叉和硬分叉一匿名和隐私保护 哈希函数性质： collision(这里指哈希碰撞) resistance，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)">
+  <meta name="description" content="​	最近在了解区块链的相关知识，对所学内容做一些总结，本文主要介绍比特币相关知识，本文只是作为笔记类容，相关技术细节可观看北大肖臻老师的《区块链技术与应用》和《比特币白皮书》。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="比特币了解">
 <meta property="og:url" content="http://example.com/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/index.html">
 <meta property="og:site_name" content="秃头客">
-<meta property="og:description" content="比特币基础知识一密码学基础一比特币的数据结构一共识协议和系统实现一挖矿算法和难度调整一比特币脚本一软分叉和硬分叉一匿名和隐私保护 哈希函数性质： collision(这里指哈希碰撞) resistance，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)">
+<meta property="og:description" content="​	最近在了解区块链的相关知识，对所学内容做一些总结，本文主要介绍比特币相关知识，本文只是作为笔记类容，相关技术细节可观看北大肖臻老师的《区块链技术与应用》和《比特币白皮书》。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709203428479.png">
-<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709204807160.png">
-<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709210235179.png">
+<meta property="og:image" content="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709203428479.png">
+<meta property="og:image" content="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709204807160.png">
+<meta property="og:image" content="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709210235179.png">
 <meta property="article:published_time" content="2022-07-18T05:30:51.000Z">
-<meta property="article:modified_time" content="2022-07-18T06:12:30.075Z">
+<meta property="article:modified_time" content="2022-07-18T06:47:52.992Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="比特币 区块链">
+<meta property="article:tag" content="比特币">
+<meta property="article:tag" content="区块链">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709203428479.png">
+<meta name="twitter:image" content="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709203428479.png">
 
 <link rel="canonical" href="http://example.com/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/">
 
@@ -189,7 +190,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-07-18 13:30:51 / 修改时间：14:12:30" itemprop="dateCreated datePublished" datetime="2022-07-18T13:30:51+08:00">2022-07-18</time>
+              <time title="创建时间：2022-07-18 13:30:51 / 修改时间：14:47:52" itemprop="dateCreated datePublished" datetime="2022-07-18T13:30:51+08:00">2022-07-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,9 +213,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
-<h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>性质：</p>
-<p><strong>collision(这里指哈希碰撞) resistance</strong>，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)</p>
+        <p>​	最近在了解区块链的相关知识，对所学内容做一些总结，本文主要介绍比特币相关知识，本文只是作为笔记类容，相关技术细节可观看<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vt411X7JF?spm_id_from=333.337.search-card.all.click">北大肖臻老师的《区块链技术与应用》</a>和<a target="_blank" rel="noopener" href="https://bitcoin.org/bitcoin.pdf">《比特币白皮书》</a>。</p>
+<span id="more"></span>
+
+<h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
+<h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>性质：<br><strong>collision(这里指哈希碰撞) resistance</strong>，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)</p>
 <p><strong>hiding</strong>	哈希函数的计算过程是单向的，不可逆的</p>
 <p>除此之外，比特币中还有第三个性质：<strong>puzzle friendly</strong>	哈希值的预算事先是不可预算的，</p>
 <p>比特币挖矿的过程中实际就是找一个nonce，nonce跟区块的块头里的其他信息合一起作为输入，得出的哈希值要小于等于某个指定的目标预值。H(block header)≤target。block header 指块头，块头里有很多域，其中一个域是我们可以设置的随机数nonce，挖矿的过程是不停的试随机数，使得block header取哈希后落在指定的范围之内。</p>
@@ -229,14 +232,14 @@
 <h3 id="区块链和普通链表的区别："><a href="#区块链和普通链表的区别：" class="headerlink" title="区块链和普通链表的区别："></a>区块链和普通链表的区别：</h3><h4 id="1、用哈希指针代替了普通指针"><a href="#1、用哈希指针代替了普通指针" class="headerlink" title="1、用哈希指针代替了普通指针"></a>1、用哈希指针代替了普通指针</h4><p>区块链的第一个区块——创世纪块(generic block)</p>
 <p>最后一个块——(most resent block)，每个区块都有一个指向前一个区块的哈希指针</p>
 <p>当前块的哈希是前一个区块的整个哈希值，所以改了前面一个区块的一部分内容，后面所有区块都要做修改。我们只需要记住最后一个区块的哈希值，就可以知道前面所有区块有没有做修改</p>
-<p><img src="/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709203428479.png" alt="image-20220709203428479"></p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709203428479.png" alt="image-20220709203428479"></p>
 <h3 id="merkle-tree"><a href="#merkle-tree" class="headerlink" title="merkle tree"></a>merkle tree</h3><p>只要记住根hash值，就能检测下面所有区块的修改。最底层是交易节点，最上层为根节点，根节点求一个hash，就叫做根hash</p>
-<p><img src="/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709204807160.png" alt="image-20220709204807160"></p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709204807160.png" alt="image-20220709204807160"></p>
 <p>每个区块分为两部分，块头(block header)和块身(block body)，块头有根hash值。每个区块包含所有交易的merkle tree，块头里面没有交易的具体内容，只有一个hash值，块身里有交易的列表。轻节点只有块头，全节点有块头和块体。</p>
 <p>问题：轻节点只有hash值，没有完整的交易信息，怎么知道黄色交易tx在merkle里？</p>
 <p>merkle proof</p>
 <p>交易节点到根节点的路径就是merkle proof</p>
-<p><img src="/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709210235179.png" alt="image-20220709210235179"></p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709210235179.png" alt="image-20220709210235179"></p>
 <p>全节点会把merkle proof和红色hash发给轻节点。轻节点将tx的hash和红色hash拼接，再与红色hash求hash，最终得到根节点hash，与merkle tree的hash做比较，即可验证tx是否在merkle tree里</p>
 <p>这样是否不安全呢?假如黄色交易被篡改，它的哈希值发生了变化，那能不能调整旁边红色的哈希值，使得它们拼接起来的哈希值是不变的呢?不行，根据collision resistance，这是不可行的。</p>
 <p>merkle proof可以证明merkle tree里面包含了某个交易，所以这种证明又叫proof of membership或 proof of inclusion。<br>对于一个轻节点来说，验证一个merkle proof 复杂度是多少?假设最底层有n个交易，则merkle proof 复杂程度是θ(log(n))</p>
@@ -300,7 +303,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81-%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag"><i class="fa fa-tag"></i> 比特币 区块链</a>
+              <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" rel="tag"><i class="fa fa-tag"></i> 比特币</a>
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag"><i class="fa fa-tag"></i> 区块链</a>
           </div>
 
         
@@ -312,10 +316,7 @@
     <a href="/2022/06/04/Typora-beta/" rel="prev" title="Typora beta永久白嫖">
       <i class="fa fa-chevron-left"></i> Typora beta永久白嫖
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/07/18/tags/" rel="next" title="tags">
-      tags <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -388,7 +389,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -401,7 +402,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
