@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>比特币了解</title>
+    <url>/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/</url>
+    <content><![CDATA[<p>​	最近在了解区块链的相关知识，对所学内容做一些总结，本文主要介绍比特币相关知识，本文只是作为笔记类容，相关技术细节可观看<a href="https://www.bilibili.com/video/BV1Vt411X7JF?spm_id_from=333.337.search-card.all.click">北大肖臻老师的《区块链技术与应用》</a>和<a href="https://bitcoin.org/bitcoin.pdf">《比特币白皮书》</a>。</p>
+<span id="more"></span>
+
+<h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
+<h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>性质：<br><strong>collision(这里指哈希碰撞) resistance</strong>，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)</p>
+<p><strong>hiding</strong>	哈希函数的计算过程是单向的，不可逆的</p>
+<p>除此之外，比特币中还有第三个性质：<strong>puzzle friendly</strong>	哈希值的预算事先是不可预算的，</p>
+<p>比特币挖矿的过程中实际就是找一个nonce，nonce跟区块的块头里的其他信息合一起作为输入，得出的哈希值要小于等于某个指定的目标预值。H(block header)≤target。block header 指块头，块头里有很多域，其中一个域是我们可以设置的随机数nonce，挖矿的过程是不停的试随机数，使得block header取哈希后落在指定的范围之内。</p>
+<p>挖矿就是求H(bloyck headey) &lt;&#x3D; target，求block headey的哈希值在target范围内，挖矿的过程没有捷径，为了使输出值落在指定范围，只能一个一个去试。所以这个过程还可以作为工作量证明(proof of work)。</p>
+<p>比特币用到的算法 SHA-256，满足以上三个性质</p>
+<h2 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h2><p>比特币开户：</p>
+<p>比特币开户就在本地生成一对公私钥(public key，private key)，公钥相当于账户(可公开)，私钥相当于密码。知道私钥就可以把钱卷走</p>
+<p>比如A要给B转10个比特币，A将交易发布到区块链上，A用私钥对交易进行签名，其他人用公钥对签名进行验证。</p>
+<p>生成公私钥时、签名时要有一个好的随机源(a good dource of randomness)，不仅是生成公私钥的时候要有好的随机源，之后每一次签名时也要有好的随机源。只要有一次签名用的随机源不好的话，就有可能泄露私钥</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希指针-hash-pointers"><a href="#哈希指针-hash-pointers" class="headerlink" title="哈希指针(hash pointers)"></a>哈希指针(hash pointers)</h3><p>普通指针保存结构体在内存中的地址，哈希指针除了保存地址，还要保存哈希值</p>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p>比特币中的数据结构——区块链，区块链就是一个个区块组成的链表，</p>
+<h3 id="区块链和普通链表的区别："><a href="#区块链和普通链表的区别：" class="headerlink" title="区块链和普通链表的区别："></a>区块链和普通链表的区别：</h3><h4 id="1、用哈希指针代替了普通指针"><a href="#1、用哈希指针代替了普通指针" class="headerlink" title="1、用哈希指针代替了普通指针"></a>1、用哈希指针代替了普通指针</h4><p>区块链的第一个区块——创世纪块(generic block)</p>
+<p>最后一个块——(most resent block)，每个区块都有一个指向前一个区块的哈希指针</p>
+<p>当前块的哈希是前一个区块的整个哈希值，所以改了前面一个区块的一部分内容，后面所有区块都要做修改。我们只需要记住最后一个区块的哈希值，就可以知道前面所有区块有没有做修改</p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709203428479.png" alt="image-20220709203428479"></p>
+<h3 id="merkle-tree"><a href="#merkle-tree" class="headerlink" title="merkle tree"></a>merkle tree</h3><p>只要记住根hash值，就能检测下面所有区块的修改。最底层是交易节点，最上层为根节点，根节点求一个hash，就叫做根hash</p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709204807160.png" alt="image-20220709204807160"></p>
+<p>每个区块分为两部分，块头(block header)和块身(block body)，块头有根hash值。每个区块包含所有交易的merkle tree，块头里面没有交易的具体内容，只有一个hash值，块身里有交易的列表。轻节点只有块头，全节点有块头和块体。</p>
+<p>问题：轻节点只有hash值，没有完整的交易信息，怎么知道黄色交易tx在merkle里？</p>
+<p>merkle proof</p>
+<p>交易节点到根节点的路径就是merkle proof</p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220709210235179.png" alt="image-20220709210235179"></p>
+<p>全节点会把merkle proof和红色hash发给轻节点。轻节点将tx的hash和红色hash拼接，再与红色hash求hash，最终得到根节点hash，与merkle tree的hash做比较，即可验证tx是否在merkle tree里</p>
+<p>这样是否不安全呢?假如黄色交易被篡改，它的哈希值发生了变化，那能不能调整旁边红色的哈希值，使得它们拼接起来的哈希值是不变的呢?不行，根据collision resistance，这是不可行的。</p>
+<p>merkle proof可以证明merkle tree里面包含了某个交易，所以这种证明又叫proof of membership或 proof of inclusion。<br>对于一个轻节点来说，验证一个merkle proof 复杂度是多少?假设最底层有n个交易，则merkle proof 复杂程度是θ(log(n))</p>
+<p>如何证明merkle tree里面没有包含某个交易?即proof of non-membership。可以把整棵树传给轻节点，轻节点收到后验证树的构造都是对的，每一层用到的哈希值都是正确的，说明树里只有这些叶节点，要找的交易不在里面，就证明了proof of non-membership。问题在于，它的复杂度是线性的θ(n)，是比较笨的方法。</p>
+<p>如果对叶节点的排列顺序做一些要求，比如按照交易的哈希值排序。每一个叶节点都是一次交易，对交易的内容取一次哈希，按照哈希值从小到大排列。要查的交易先算出一个哈希值，看看如果它在里面该是哪个位置。比如说在第三个第四个之间，这时提供的proof是第三个第四个叶节点都要往上到根节点。如果其中哈希值都是正确的，最后根节点算出的哈希值也是没有被改过的，说明第三、四个节点在原来的merkle tree里面，确实是相邻的点。要找的交易如果存在的话，应该在这两个节点中间。但是它没有出现，所以就不存在。其复杂度也是log形式，代价是要排序。排好序的叫作sorted merkle tree。比特币中没有用到这种排好序的merkle tree，因为比特币中不需要做不存在证明。</p>
+<p>这节讲了比特币中两种最基本的结构:区块链和merkle tree，都是用哈希指针来构造的。除了这两种之外，哈希指针还能用另一个方面。</p>
+<p>只要一个数据结构是无环的(非循环链表)，都能用哈希指针代替普通指针。有环的话存在一个问题，他们的哈希值没法计算，没法确定一个哈希值固定的区块。</p>
+<h2 id="比特币协议"><a href="#比特币协议" class="headerlink" title="比特币协议"></a>比特币协议</h2><p>数字货币的风险：</p>
+<p>double spending attack 花两次攻击</p>
+<p>解决发方法：</p>
+<p>数据中心记录每个数字货币对应的人，A把钱已经给B了，对应关系已经指向B，如果A再想把钱给其他人，交易就无法进行，因为数据中心发现数字货币不属于A了</p>
+<p>缺点：所有交易都要经过数据中心</p>
+<p>解决方法：</p>
+<p>区块链去中心化</p>
+<h3 id="块头和块体"><a href="#块头和块体" class="headerlink" title="块头和块体"></a>块头和块体</h3><p>块头：</p>
+<p>version	版本</p>
+<p>hash of previous block header	指向前一个区块的指针</p>
+<p>merkle root hash	整个merkle tree根节点hash值</p>
+<p>target	挖矿的难度目标值</p>
+<p>​	整个块头的hash要小于这个target值，即H(block header) &lt;&#x3D; target</p>
+<p>nonce	随机数</p>
+<p>块身</p>
+<p>ttransaction list 交易列表</p>
+<h3 id="分布式共识协议"><a href="#分布式共识协议" class="headerlink" title="分布式共识协议"></a>分布式共识协议</h3><p>分布式系统两个结论</p>
+<p>1、FLP，他们的结论是:在一个异步的(asynchronous)系统里，(网络传输迟延没有上限就叫异步系统)，即使只有一个成员是有问题的(faulty)，也不可能取得共识</p>
+<p>2、CAP Theorem (CAP是指分布式系统的三个我们想要的性质，Consistency【系统状态的一致性】  Availability【别人都可以用】 Partition tolerance【分区兼容性】)。该理论内容是:任何一个分布式系统，比如分布式哈希表，这三个性质中，最多只能满足两个，假如想要前两个性质，那么就不会得到第三个性质</p>
+<h3 id="分布式共识协议：Paxos协议"><a href="#分布式共识协议：Paxos协议" class="headerlink" title="分布式共识协议：Paxos协议"></a>分布式共识协议：Paxos协议</h3><p>该协议能够保证共识的一致性，即该协议一旦达成共识，那么这个共识一定是一致的，即每个成员的共识都是相同的。但是某些情况下，该协议永远无法达成共识，这种可能性很小，但是客观存在</p>
+<h3 id="比特币共识协议：consensus-in-BitCoin"><a href="#比特币共识协议：consensus-in-BitCoin" class="headerlink" title="比特币共识协议：consensus in BitCoin"></a>比特币共识协议：consensus in BitCoin</h3><p>怎么实现达成共识呢？</p>
+<p>1、基于账户数量投票，票数超过一般，达成共识。存在致命问题，比特币账户在本地产生，谁都可以创建，某人创建大量账户，只要账户超过一般，就可以实现女巫攻击(sybil attack)，这种方式行不通。</p>
+<p>2、基于计算力投票，每个节点都可以在本地组装一个候选区块，把他认为合法的交易，放在区块里，让后尝试各种nonce值(4byte)，看哪一个能满足H(block header) &lt;&#x3D; target，如果这个节点找到了符合条件的nonce值，他就获得了记账权</p>
+<p>所谓记账权就是往货币账本写入下一个区块的权利，只有找到这个nonce值，有权发布下一个区块，其他节点收到这个区块后验证这个区块的合法性</p>
+<p>合法性检查的具体内容：</p>
+<p>比如括号里的block header的内容对不对；block header里有一个域，叫nbits域，实际是目标阈值的编码，检查nbits域设置是否符合比特币协议规定的难度要求；该不等式是否成立；还要检查block body里的交易列表，验证交易是否合法：1.要有合法的签名，2.钱以前没有花过。如果有一项不合符，这个区块都不能被接受。 </p>
+<h2 id="比特币实现"><a href="#比特币实现" class="headerlink" title="比特币实现"></a>比特币实现</h2><p>transaction-base ledger(基于交易的分类帐)</p>
+<p>全节点维持一个UTXP(Unspent Transaction Output)的数据结构，还没花出去的交易输出的集合叫UTXO</p>
+<p>UTXO可以检测double spending</p>
+<p>打包奖励：</p>
+<p>1、出块奖励：每21万区块减半，每4分钟出现一个区块，大约4年出21万个，4年就会减半</p>
+<p>2、交易费：很少。交易费是为了激励区块接受下一个区块，</p>
+<p>矿工挖矿，争夺记账权主要是为了出块奖励，12.5个BTC。越往后出块奖励就会越少，挖矿争夺的就是交易费</p>
+<h2 id="比特币网络"><a href="#比特币网络" class="headerlink" title="比特币网络"></a>比特币网络</h2><p>比特币工作在应用层，底层是p2p网络层</p>
+<p>比特币网络设计的原则是简单鲁棒，而不是高效。每个节点维护一个零度节点的集合消息传输在网络中采取flooding的方式，节点第一次听到某个消息时，把他传播给所有的零度节点，同时记录消息我已经收到了，下次收到消息时就不用转发给零度节点了</p>
+<p>零度节点是随机的，没有考虑底层的网络结构，这样设计的好处是增强鲁棒性，但是会牺牲效率</p>
+<p>比特币系统中，每个节点要维护一个等待上链交易的集合，假设某个集合里的交易都是等待写入区块链里的，那么第一次听到某个合法交易时，把这个交易加入到集合，并将这个交易转发给所有邻居节点，再次收到这个交易时就不用转发了，这样就避免了交易无限制的传播下去，</p>
+<p>比特币协议对区块的大小有1M的限制，可能需要几十秒才能传播给其他节点</p>
+<h2 id="挖矿难度"><a href="#挖矿难度" class="headerlink" title="挖矿难度"></a>挖矿难度</h2><p>H(block header) ≤ target</p>
+<p>比特币用到的算法时SHA256，产生的hash值时256位，范围时0-2的256次方</p>
+<p>难度公式：difficulty&#x3D;difficulty 1 target &#x2F; target</p>
+<p>difficulty 1 target表示安度为1的target值，非常大。所以target越大，难度越小</p>
+<p>比特币挖矿难度调整：【</p>
+<p>比特币协议中规定，每2016个区块后要调整目标阈值，大概是两个星期调整一次</p>
+<p>具体公式：target &#x3D;target×(actual time&#x2F;expected time)</p>
+<p>actual time指产生2016个区块实际花费的时间，expected time指产生2016个区块应用的时间，即2016×10min</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>比特币</tag>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora beta永久白嫖</title>
+    <url>/2022/06/04/Typora-beta/</url>
+    <content><![CDATA[<h2 id="Typora-beta版到期了"><a href="#Typora-beta版到期了" class="headerlink" title="Typora beta版到期了"></a>Typora beta版到期了</h2><p>今天，没错，就在今天，本以为可以无限使用的Typora beta版，今天也到期了。</p>
+<p>笔者使用的是0.11.17版，最后一个beta版0.11.18预计不久也会到期。<span id="more"></span></p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604145226985.png" alt="image-20220604145226985"></p>
+<p>对于一个长期使用Typora的深度用户，已经不适应其他笔记软件。</p>
+<p>当然，Typora正式版也有破解的。我嫌麻烦，因为重装后需要重新修改一些CSS样式，设置图床，将字体调整为自己喜欢的样式，决定破解beta版的许可。</p>
+<p>项目地址： <a href="https://github.com/fossabot/typoraCracker">https://github.com/fossabot/typoraCracker</a></p>
+<h2 id="破解方法"><a href="#破解方法" class="headerlink" title="破解方法"></a>破解方法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>破解关键在于Typora安装目录下的<code>resources/app.asar</code>文件。逆向后得到<code>License.js</code>。我们修改<code>License.js</code>实现破解</p>
+<p>使用fossabot的脚本可以逆向<code>app.asar</code>文件。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>安装python依赖库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h3><p><code>app.asar</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python typora.py <span class="string">&quot;C:\Program Files\Typora\resources\app.asar&quot;</span> workstation/outfile/</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205704876.png" alt="image-20220604205704876"></p>
+<h3 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h3><p>得到两个文件夹。我们需要进入<code>dec_app目录</code>修改<code>License.js</code></p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604204239476.png" alt="image-20220604204239476"></p>
+<p>我们需要进入<code>dec_app目录</code>修改<code>License.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">getInstallDate = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="title function_">getLicenseLocalStore</span>().<span class="title function_">get</span>(<span class="string">&quot;IDate&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isNaN</span>(t.<span class="title function_">getTime</span>())) <span class="keyword">return</span> e ? <span class="literal">null</span> : <span class="keyword">new</span> <span class="title class_">Date</span>;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="number">1636297098336</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isNaN</span>(n) ? n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2021-10-01&quot;</span>) : (n = <span class="keyword">new</span> <span class="title class_">Date</span>(n), <span class="built_in">isNaN</span>(n.<span class="title function_">getTime</span>()) &amp;&amp; (n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2021-10-01&quot;</span>))), t &lt; n ? n : t</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>我们将 n的值改为任意字符<code>aaa</code> ，时间改为<code>2099-10-01</code>，当n不是数字时，函数返回值就是我们设定的<code>2099-10-01</code>，</p>
+<p>注：其他版本的变量可能不是n，</p>
+<p>修改后的内容如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">getInstallDate = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="title function_">getLicenseLocalStore</span>().<span class="title function_">get</span>(<span class="string">&quot;IDate&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isNaN</span>(t.<span class="title function_">getTime</span>())) <span class="keyword">return</span> e ? <span class="literal">null</span> : <span class="keyword">new</span> <span class="title class_">Date</span>;</span><br><span class="line">        <span class="keyword">var</span> n = aaa;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isNaN</span>(n) ? n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2099-10-01&quot;</span>) : (n = <span class="keyword">new</span> <span class="title class_">Date</span>(n), <span class="built_in">isNaN</span>(n.<span class="title function_">getTime</span>()) &amp;&amp; (n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2099-10-01&quot;</span>))), t &lt; n ? n : t</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>修改完成后再用脚本进行加密，加密成app.asar</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python typora.py -u <span class="string">&quot;C:\Users\TT\Desktop\typoraCracker-master\workstation\outfile\dec_app&quot;</span> ./</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205624606.png" alt="image-20220604205624606"></p>
+<p>当前目录会生成<code>app.asar</code>,替换Typora安装目录下的<code>app.asar</code><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205411499.png" alt="image-20220604205411499"></p>
+<h3 id="白嫖成功"><a href="#白嫖成功" class="headerlink" title="白嫖成功"></a>白嫖成功</h3><p>测试版钉子户又可以愉快的白嫖了</p>
+<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604213133055.png" alt="image-20220604213133055"></p>
+<h2 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h2><p><code>License.js</code>要使用压缩格式，美化后的文件加密后得到<code>app.asar</code>会报错</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>Typora</tag>
+        <tag>beta</tag>
+        <tag>破解</tag>
+      </tags>
+  </entry>
+</search>
