@@ -20,28 +20,36 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="比特币基础知识一密码学基础一比特币的数据结构一共识协议和系统实现一挖矿算法和难度调整一比特币脚本一软分叉和硬分叉一匿名和隐私保护 哈希函数性质： collision(这里指哈希碰撞) resistance，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)">
+<meta property="og:type" content="article">
 <meta property="og:title" content="秃头客">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/index.html">
 <meta property="og:site_name" content="秃头客">
+<meta property="og:description" content="比特币基础知识一密码学基础一比特币的数据结构一共识协议和系统实现一挖矿算法和难度调整一比特币脚本一软分叉和硬分叉一匿名和隐私保护 哈希函数性质： collision(这里指哈希碰撞) resistance，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709203428479.png">
+<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709204807160.png">
+<meta property="og:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709210235179.png">
+<meta property="article:published_time" content="2022-07-18T05:43:59.015Z">
+<meta property="article:modified_time" content="2022-07-18T05:45:38.337Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%E5%8C%BA%E5%9D%97%E9%93%BE.assets/image-20220709203428479.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>秃头客</title>
+  <title> | 秃头客</title>
   
 
 
@@ -149,9 +157,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -167,10 +176,9 @@
       <meta itemprop="name" content="秃头客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/07/18/blog-%E5%8C%BA%E5%9D%97%E9%93%BE/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -194,7 +202,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
+        <h2 id="比特币基础知识"><a href="#比特币基础知识" class="headerlink" title="比特币基础知识"></a>比特币基础知识</h2><p>一密码学基础<br>一比特币的数据结构<br>一共识协议和系统实现<br>一挖矿算法和难度调整<br>一比特币脚本<br>一软分叉和硬分叉<br>一匿名和隐私保护</p>
 <h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>性质：</p>
 <p><strong>collision(这里指哈希碰撞) resistance</strong>，例如x≠y H(x)&#x3D;H(y) 两个不同的输入，输出却是相等的，这就称哈希碰撞。它是不可避免的，因为输入空间总大于输出空间。给出x，很难找到y，除非蛮力求解(brute-force)</p>
 <p><strong>hiding</strong>	哈希函数的计算过程是单向的，不可逆的</p>
@@ -273,121 +281,30 @@
 <p>具体公式：target &#x3D;target×(actual time&#x2F;expected time)</p>
 <p>actual time指产生2016个区块实际花费的时间，expected time指产生2016个区块应用的时间，即2016×10min</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/04/Typora-beta/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秃头客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/04/Typora-beta/" class="post-title-link" itemprop="url">Typora beta永久白嫖</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-04 21:52:51 / 修改时间：22:41:43" itemprop="dateCreated datePublished" datetime="2022-06-04T21:52:51+08:00">2022-06-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Typora-beta版到期了"><a href="#Typora-beta版到期了" class="headerlink" title="Typora beta版到期了"></a>Typora beta版到期了</h2><p>今天，没错，就在今天，本以为可以无限使用的Typora beta版，今天也到期了。</p>
-<p>笔者使用的是0.11.17版，最后一个beta版0.11.18预计不久也会到期。</p>
-<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604145226985.png" alt="image-20220604145226985"></p>
-<p>对于一个长期使用Typora的深度用户，已经不适应其他笔记软件。</p>
-<p>当然，Typora正式版也有破解的。我嫌麻烦，因为重装后需要重新修改一些CSS样式，设置图床，将字体调整为自己喜欢的样式，决定破解beta版的许可。</p>
-<p>项目地址： <a target="_blank" rel="noopener" href="https://github.com/fossabot/typoraCracker">https://github.com/fossabot/typoraCracker</a></p>
-<h2 id="破解方法"><a href="#破解方法" class="headerlink" title="破解方法"></a>破解方法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>破解关键在于Typora安装目录下的<code>resources/app.asar</code>文件。逆向后得到<code>License.js</code>。我们修改<code>License.js</code>实现破解</p>
-<p>使用fossabot的脚本可以逆向<code>app.asar</code>文件。</p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>安装python依赖库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-<h3 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h3><p><code>app.asar</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python typora.py <span class="string">&quot;C:\Program Files\Typora\resources\app.asar&quot;</span> workstation/outfile/</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205704876.png" alt="image-20220604205704876"></p>
-<h3 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h3><p>得到两个文件夹。我们需要进入<code>dec_app目录</code>修改<code>License.js</code></p>
-<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604204239476.png" alt="image-20220604204239476"></p>
-<p>我们需要进入<code>dec_app目录</code>修改<code>License.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getInstallDate = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="title function_">getLicenseLocalStore</span>().<span class="title function_">get</span>(<span class="string">&quot;IDate&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isNaN</span>(t.<span class="title function_">getTime</span>())) <span class="keyword">return</span> e ? <span class="literal">null</span> : <span class="keyword">new</span> <span class="title class_">Date</span>;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="number">1636297098336</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isNaN</span>(n) ? n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2021-10-01&quot;</span>) : (n = <span class="keyword">new</span> <span class="title class_">Date</span>(n), <span class="built_in">isNaN</span>(n.<span class="title function_">getTime</span>()) &amp;&amp; (n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2021-10-01&quot;</span>))), t &lt; n ? n : t</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-
-<p>我们将 n的值改为任意字符<code>aaa</code> ，时间改为<code>2099-10-01</code>，当n不是数字时，函数返回值就是我们设定的<code>2099-10-01</code>，</p>
-<p>注：其他版本的变量可能不是n，</p>
-<p>修改后的内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getInstallDate = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="title function_">getLicenseLocalStore</span>().<span class="title function_">get</span>(<span class="string">&quot;IDate&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isNaN</span>(t.<span class="title function_">getTime</span>())) <span class="keyword">return</span> e ? <span class="literal">null</span> : <span class="keyword">new</span> <span class="title class_">Date</span>;</span><br><span class="line">        <span class="keyword">var</span> n = aaa;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isNaN</span>(n) ? n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2099-10-01&quot;</span>) : (n = <span class="keyword">new</span> <span class="title class_">Date</span>(n), <span class="built_in">isNaN</span>(n.<span class="title function_">getTime</span>()) &amp;&amp; (n = <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;2099-10-01&quot;</span>))), t &lt; n ? n : t</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-
-<p>修改完成后再用脚本进行加密，加密成app.asar</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python typora.py -u <span class="string">&quot;C:\Users\TT\Desktop\typoraCracker-master\workstation\outfile\dec_app&quot;</span> ./</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205624606.png" alt="image-20220604205624606"></p>
-<p>当前目录会生成<code>app.asar</code>,替换Typora安装目录下的<code>app.asar</code><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604205411499.png" alt="image-20220604205411499"></p>
-<h3 id="白嫖成功"><a href="#白嫖成功" class="headerlink" title="白嫖成功"></a>白嫖成功</h3><p>测试版钉子户又可以愉快的白嫖了</p>
-<p><img src="http://p0st1r.oss-cn-beijing.aliyuncs.com/img/image-20220604213133055.png" alt="image-20220604213133055"></p>
-<h2 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h2><p><code>License.js</code>要使用压缩格式，美化后的文件加密后得到<code>app.asar</code>会报错</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/04/Typora-beta/" rel="prev" title="Typora beta永久白嫖">
+      <i class="fa fa-chevron-left"></i> Typora beta永久白嫖
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -440,6 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">比特币基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%BE%E5%90%8D"><span class="nav-number">3.</span> <span class="nav-text">签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E6%8C%87%E9%92%88-hash-pointers"><span class="nav-number">4.1.</span> <span class="nav-text">哈希指针(hash pointers)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="nav-number">4.2.</span> <span class="nav-text">区块链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%92%8C%E6%99%AE%E9%80%9A%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">4.3.</span> <span class="nav-text">区块链和普通链表的区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%94%A8%E5%93%88%E5%B8%8C%E6%8C%87%E9%92%88%E4%BB%A3%E6%9B%BF%E4%BA%86%E6%99%AE%E9%80%9A%E6%8C%87%E9%92%88"><span class="nav-number">4.3.1.</span> <span class="nav-text">1、用哈希指针代替了普通指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merkle-tree"><span class="nav-number">4.4.</span> <span class="nav-text">merkle tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">比特币协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%97%E5%A4%B4%E5%92%8C%E5%9D%97%E4%BD%93"><span class="nav-number">5.1.</span> <span class="nav-text">块头和块体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.2.</span> <span class="nav-text">分布式共识协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE%EF%BC%9APaxos%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.3.</span> <span class="nav-text">分布式共识协议：Paxos协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE%EF%BC%9Aconsensus-in-BitCoin"><span class="nav-number">5.4.</span> <span class="nav-text">比特币共识协议：consensus in BitCoin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">6.</span> <span class="nav-text">比特币实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%BD%91%E7%BB%9C"><span class="nav-number">7.</span> <span class="nav-text">比特币网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%96%E7%9F%BF%E9%9A%BE%E5%BA%A6"><span class="nav-number">8.</span> <span class="nav-text">挖矿难度</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
