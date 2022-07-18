@@ -91,6 +91,7 @@
 <p>比特币协议中规定，每2016个区块后要调整目标阈值，大概是两个星期调整一次</p>
 <p>具体公式：target &#x3D;target×(actual time&#x2F;expected time)</p>
 <p>actual time指产生2016个区块实际花费的时间，expected time指产生2016个区块应用的时间，即2016×10min</p>
+<p>。。。未完待续。。。</p>
 ]]></content>
       <categories>
         <category>杂项</category>
